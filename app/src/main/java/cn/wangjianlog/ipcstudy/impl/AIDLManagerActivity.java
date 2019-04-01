@@ -113,7 +113,6 @@ public class AIDLManagerActivity extends AppCompatActivity {
     private ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            //调用asInterface()方法获得IMyAidlInterface实例
             bookManager = IBookManager.Stub.asInterface(service);
             if (bookManager == null) {
                 Log.e(TAG, "the mStub is null");
