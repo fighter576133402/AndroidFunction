@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".impl.AIDLActivity">
+
+    <Button
+        android:id="@+id/btn_bind_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="绑定服务"
+        android:textColor="@android:color/holo_red_dark" />
+
+    <Button
+        android:id="@+id/btn_get_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="图书数量"
+        android:textColor="@android:color/holo_red_dark"
+        app:layout_constraintTop_toBottomOf="@id/btn_bind_service" />
+
+    <Button
+        android:id="@+id/btn_add_book"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="添加图书"
+        android:textColor="@android:color/holo_red_dark"
+        app:layout_constraintLeft_toRightOf="@id/btn_bind_service"
+        app:layout_constraintTop_toBottomOf="@id/btn_bind_service" />
+
+    <Button
+        android:id="@+id/btn_get_book_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="图书列表"
+        android:textColor="@android:color/holo_red_dark"
+        app:layout_constraintLeft_toRightOf="@id/btn_add_book"
+        app:layout_constraintTop_toBottomOf="@id/btn_bind_service" />
+
+    <TextView
+        android:id="@+id/tv_show_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_red_dark"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_get_book_list" />
+</android.support.constraint.ConstraintLayout>
