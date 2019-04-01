@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".impl.AIDLActivity" />
-        <activity android:name=".impl.AIDLManagerActivity"></activity>
+        <activity android:name=".impl.AIDLManagerActivity"/>
     </application>
 
 </manifest>

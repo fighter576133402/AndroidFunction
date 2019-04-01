@@ -22,9 +22,9 @@ public class AIDLActivity extends AppCompatActivity {
 
     private static final String TAG = "AIDLActivity";
 
-    public static void start(Context context){
+    public static void start(Context context) {
         Intent intent = new Intent();
-        intent.setClass(context,AIDLActivity.class);
+        intent.setClass(context, AIDLActivity.class);
         context.startActivity(intent);
     }
 
@@ -39,7 +39,7 @@ public class AIDLActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aidl);
 
-        tv_show_info = (TextView)findViewById(R.id.tv_show_info);
+        tv_show_info = (TextView) findViewById(R.id.tv_show_info);
 
         // 绑定服务
         findViewById(R.id.btn_bind_service).setOnClickListener(new View.OnClickListener() {
@@ -58,7 +58,7 @@ public class AIDLActivity extends AppCompatActivity {
         findViewById(R.id.btn_get_count).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (bookAidlInterface != null){
+                if (bookAidlInterface != null) {
                     try {
                         int count = bookAidlInterface.count(1);
                         tv_show_info.setText(String.valueOf(count));
@@ -72,7 +72,7 @@ public class AIDLActivity extends AppCompatActivity {
         findViewById(R.id.btn_add_book).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (bookAidlInterface != null){
+                if (bookAidlInterface != null) {
                     try {
                         Book book = new Book();
                         book.setBookId(index++);
@@ -89,9 +89,9 @@ public class AIDLActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    if (bookAidlInterface != null){
+                    if (bookAidlInterface != null) {
                         List<Book> books = bookAidlInterface.getBooks();
-                        Log.i(TAG,"books:" + books);
+                        Log.i(TAG, "books:" + books);
                         showBooks(books);
                     }
                 } catch (RemoteException e) {
@@ -102,10 +102,10 @@ public class AIDLActivity extends AppCompatActivity {
 
     }
 
-    private void showBooks(List<Book> books){
-        if (books != null){
+    private void showBooks(List<Book> books) {
+        if (books != null) {
             StringBuilder builder = new StringBuilder();
-            for (Book book : books){
+            for (Book book : books) {
                 builder.append(book.toString()).append("\n");
             }
             tv_show_info.setText(builder);

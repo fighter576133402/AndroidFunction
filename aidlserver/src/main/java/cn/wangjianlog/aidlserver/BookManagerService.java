@@ -34,7 +34,7 @@ public class BookManagerService extends Service {
     IBookManager.Stub mSub = new IBookManager.Stub() {
         @Override
         public int count(int type) throws RemoteException {
-            synchronized (this){
+            synchronized (this) {
                 if (type == 0) {
                     return 100;
                 } else {
@@ -45,28 +45,28 @@ public class BookManagerService extends Service {
 
         @Override
         public List<Book> getBooks() throws RemoteException {
-            synchronized (this){
+            synchronized (this) {
                 return books;
             }
         }
 
         @Override
         public void addBookIn(Book book) throws RemoteException {
-            synchronized (this){
+            synchronized (this) {
                 books.add(book);
             }
         }
 
         @Override
         public void addBookOut(Book book) throws RemoteException {
-            synchronized (this){
+            synchronized (this) {
                 books.add(book);
             }
         }
 
         @Override
         public void addBookInout(Book book) throws RemoteException {
-            synchronized (this){
+            synchronized (this) {
                 books.add(book);
             }
         }

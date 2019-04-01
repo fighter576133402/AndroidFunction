@@ -22,9 +22,9 @@ public class AIDLManagerActivity extends AppCompatActivity {
 
     private static final String TAG = "AIDLManagerActivity";
 
-    public static void start(Context context){
+    public static void start(Context context) {
         Intent intent = new Intent();
-        intent.setClass(context,AIDLManagerActivity.class);
+        intent.setClass(context, AIDLManagerActivity.class);
         context.startActivity(intent);
     }
 
@@ -39,7 +39,7 @@ public class AIDLManagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aidlmanager);
 
-        tv_show_info = (TextView)findViewById(R.id.tv_show_info);
+        tv_show_info = (TextView) findViewById(R.id.tv_show_info);
 
         // 绑定服务
         findViewById(R.id.btn_bind_service).setOnClickListener(new View.OnClickListener() {
@@ -58,7 +58,7 @@ public class AIDLManagerActivity extends AppCompatActivity {
         findViewById(R.id.btn_get_count).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (bookManager != null){
+                if (bookManager != null) {
                     try {
                         int count = bookManager.count(1);
                         tv_show_info.setText(String.valueOf(count));
@@ -72,11 +72,11 @@ public class AIDLManagerActivity extends AppCompatActivity {
         findViewById(R.id.btn_add_book).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (bookManager != null){
+                if (bookManager != null) {
                     try {
                         Book book = new Book();
                         book.setBookId(index++);
-                        book.setBookName("白夜行");
+                        book.setBookName("算法导论");
                         bookManager.addBookIn(book);
                     } catch (RemoteException e) {
                         e.printStackTrace();
@@ -89,9 +89,8 @@ public class AIDLManagerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    if (bookManager != null){
+                    if (bookManager != null) {
                         List<Book> books = bookManager.getBooks();
-                        Log.i(TAG,"books:" + books);
                         showBooks(books);
                     }
                 } catch (RemoteException e) {
@@ -101,10 +100,10 @@ public class AIDLManagerActivity extends AppCompatActivity {
         });
     }
 
-    private void showBooks(List<Book> books){
-        if (books != null){
+    private void showBooks(List<Book> books) {
+        if (books != null) {
             StringBuilder builder = new StringBuilder();
-            for (Book book : books){
+            for (Book book : books) {
                 builder.append(book.toString()).append("\n");
             }
             tv_show_info.setText(builder);
@@ -117,7 +116,7 @@ public class AIDLManagerActivity extends AppCompatActivity {
             //调用asInterface()方法获得IMyAidlInterface实例
             bookManager = IBookManager.Stub.asInterface(service);
             if (bookManager == null) {
-                Log.e("MainActivity", "the mStub is null");
+                Log.e(TAG, "the mStub is null");
             } else {
                 try {
                     int value = bookManager.count(0);
