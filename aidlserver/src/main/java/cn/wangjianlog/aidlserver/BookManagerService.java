@@ -29,30 +29,46 @@ import cn.wangjianlog.aidl.IBookManager;
 
 public class BookManagerService extends Service {
 
+    private List<Book> books = new ArrayList<>();
+
     IBookManager.Stub mSub = new IBookManager.Stub() {
         @Override
         public int count(int type) throws RemoteException {
-            return 1000;
+            synchronized (this){
+                if (type == 0) {
+                    return 100;
+                } else {
+                    return books.size();
+                }
+            }
         }
 
         @Override
         public List<Book> getBooks() throws RemoteException {
-            return new ArrayList<>();
+            synchronized (this){
+                return books;
+            }
         }
 
         @Override
         public void addBookIn(Book book) throws RemoteException {
-
+            synchronized (this){
+                books.add(book);
+            }
         }
 
         @Override
         public void addBookOut(Book book) throws RemoteException {
-
+            synchronized (this){
+                books.add(book);
+            }
         }
 
         @Override
         public void addBookInout(Book book) throws RemoteException {
-
+            synchronized (this){
+                books.add(book);
+            }
         }
     };
 

@@ -34,10 +34,12 @@ public class BookService extends Service {
     IBookAidlInterface.Stub mStub = new IBookAidlInterface.Stub() {
         @Override
         public int count(int type) throws RemoteException {
-            if (type == 0) {
-                return 100;
-            } else {
-                return books.size();
+            synchronized (this){
+                if (type == 0) {
+                    return 100;
+                } else {
+                    return books.size();
+                }
             }
         }
 

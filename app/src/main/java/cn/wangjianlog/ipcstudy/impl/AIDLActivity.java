@@ -32,6 +32,8 @@ public class AIDLActivity extends AppCompatActivity {
 
     private TextView tv_show_info;
 
+    private int index;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +75,7 @@ public class AIDLActivity extends AppCompatActivity {
                 if (bookAidlInterface != null){
                     try {
                         Book book = new Book();
+                        book.setBookId(index++);
                         book.setBookName("白夜行");
                         bookAidlInterface.addBookIn(book);
                     } catch (RemoteException e) {
@@ -89,6 +92,7 @@ public class AIDLActivity extends AppCompatActivity {
                     if (bookAidlInterface != null){
                         List<Book> books = bookAidlInterface.getBooks();
                         Log.i(TAG,"books:" + books);
+                        showBooks(books);
                     }
                 } catch (RemoteException e) {
                     e.printStackTrace();
@@ -96,6 +100,16 @@ public class AIDLActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void showBooks(List<Book> books){
+        if (books != null){
+            StringBuilder builder = new StringBuilder();
+            for (Book book : books){
+                builder.append(book.toString()).append("\n");
+            }
+            tv_show_info.setText(builder);
+        }
     }
 
     private ServiceConnection serviceConnection = new ServiceConnection() {
