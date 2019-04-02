@@ -25,4 +25,13 @@
         app:layout_constraintRight_toRightOf="parent"
         android:textColor="@android:color/holo_red_dark"
         app:layout_constraintTop_toBottomOf="@id/btn_aidl" />
+    <Button
+        android:id="@+id/btn_messenger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Messenger"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textColor="@android:color/holo_red_dark"
+        app:layout_constraintTop_toBottomOf="@id/btn_aidl_custom" />
 </android.support.constraint.ConstraintLayout>

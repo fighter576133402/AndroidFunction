@@ -47,10 +47,9 @@ public class AIDLManagerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                //由于是隐式启动Service 所以要添加对应的action，A和之前服务端的一样。
-                intent.setAction("cn.wangjianlog.aidlserver.bookmanagerservice");
-                //android 5.0以后直设置action不能启动相应的服务，需要设置packageName或者Component。
-                intent.setPackage("cn.wangjianlog.aidlserver"); //packageName 需要和服务端的一致.
+                //由于是隐式启动Service 所以要添加对应的action
+                intent.setAction("cn.wangjianlog.aidlserver.BookManagerService");
+                intent.setPackage("cn.wangjianlog.aidlserver");
                 bindService(intent, serviceConnection, BIND_AUTO_CREATE);
             }
         });
@@ -136,7 +135,9 @@ public class AIDLManagerActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unbindService(serviceConnection);
+        if (bookManager != null){
+            unbindService(serviceConnection);
+        }
     }
 
 }

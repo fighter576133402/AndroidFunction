@@ -23,7 +23,7 @@
             android:exported="true"
             android:enabled="true">
             <intent-filter>
-                <action android:name="cn.wangjianlog.aidlserver.bookservice"/>
+                <action android:name="cn.wangjianlog.aidlserver.BookService"/>
             </intent-filter>
         </service>
 
@@ -31,7 +31,14 @@
             android:exported="true"
             android:enabled="true">
             <intent-filter>
-                <action android:name="cn.wangjianlog.aidlserver.bookmanagerservice"/>
+                <action android:name="cn.wangjianlog.aidlserver.BookManagerService"/>
+            </intent-filter>
+        </service>
+        <service android:name=".MessengerService"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="cn.wangjianlog.aidlserver.MessengerService"/>
             </intent-filter>
         </service>
     </application>

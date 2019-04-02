@@ -6,6 +6,7 @@ import android.view.View;
 
 import cn.wangjianlog.ipcstudy.impl.AIDLActivity;
 import cn.wangjianlog.ipcstudy.impl.AIDLManagerActivity;
+import cn.wangjianlog.ipcstudy.impl.MessengerActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +26,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AIDLManagerActivity.start(v.getContext());
+            }
+        });
+
+        findViewById(R.id.btn_messenger).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MessengerActivity.start(v.getContext());
             }
         });
     }

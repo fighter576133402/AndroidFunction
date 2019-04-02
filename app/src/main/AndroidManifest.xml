@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".impl.AIDLActivity" />
-        <activity android:name=".impl.AIDLManagerActivity"/>
+        <activity android:name=".impl.AIDLManagerActivity" />
+        <activity android:name=".impl.MessengerActivity"></activity>
     </application>
 
 </manifest>
