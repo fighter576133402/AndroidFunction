@@ -76,8 +76,10 @@ public class AIDLActivity extends AppCompatActivity {
                     try {
                         Book book = new Book();
                         book.setBookId(index++);
-                        book.setBookName("白夜行");
-                        bookAidlInterface.addBookIn(book);
+                        book.setBookName("算法导论");
+                        Log.i(TAG,"添加前：" + book.toString());
+                        bookAidlInterface.addBookInout(book);
+                        Log.i(TAG,"添加后：" + book.toString());
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }

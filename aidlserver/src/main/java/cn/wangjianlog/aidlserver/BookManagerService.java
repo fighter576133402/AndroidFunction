@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.wangjianlog.aidl.Book;
-import cn.wangjianlog.aidl.IBookManager;
+import cn.wangjianlog.aidl.Stub;
 
 /**
  * <pre>
@@ -31,7 +31,7 @@ public class BookManagerService extends Service {
 
     private List<Book> books = new ArrayList<>();
 
-    IBookManager.Stub mSub = new IBookManager.Stub() {
+    Stub mSub = new Stub() {
         @Override
         public int count(int type) throws RemoteException {
             synchronized (this) {

@@ -67,6 +67,7 @@ public class BookService extends Service {
         @Override
         public void addBookInout(Book book) throws RemoteException {
             synchronized (this) {
+                book.setBookName("编译原理");
                 books.add(book);
             }
         }

@@ -15,12 +15,19 @@ interface IBookAidlInterface {
 
    /**
     * 传参时除了Java基本类型以及String，CharSequence之外的类型
-    * 都需要在前面加上定向tag，具体加什么量需而定
+    * in客户端的参数输入
     */
 
     void addBookIn(in Book book);
 
+   /**
+    * 服务端的参数输入
+    *
+    */
     void addBookOut(out Book book);
-
+   /**
+    * 这个可以叫输入输出参数，客户端可输入、服务端也可输入。
+    * 客户端输入了参数到服务端后，服务端也可对该参数进行修改等，最后在客户端上得到的是服务端输出的参数
+    */
     void addBookInout(inout Book book);
 }

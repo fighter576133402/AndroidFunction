@@ -16,6 +16,7 @@ import java.util.List;
 
 import cn.wangjianlog.aidl.Book;
 import cn.wangjianlog.aidl.IBookManager;
+import cn.wangjianlog.aidl.Stub;
 import cn.wangjianlog.ipcstudy.R;
 
 public class AIDLManagerActivity extends AppCompatActivity {
@@ -113,7 +114,7 @@ public class AIDLManagerActivity extends AppCompatActivity {
     private ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            bookManager = IBookManager.Stub.asInterface(service);
+            bookManager = Stub.asInterface(service);
             if (bookManager == null) {
                 Log.e(TAG, "the mStub is null");
             } else {
