@@ -7,19 +7,12 @@
     tools:context=".impl.AIDLActivity">
 
     <Button
-        android:id="@+id/btn_bind_service"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="绑定服务"
-        android:textColor="@android:color/holo_red_dark" />
-
-    <Button
         android:id="@+id/btn_get_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="图书数量"
         android:textColor="@android:color/holo_red_dark"
-        app:layout_constraintTop_toBottomOf="@id/btn_bind_service" />
+         />
 
     <Button
         android:id="@+id/btn_add_book"
@@ -27,8 +20,7 @@
         android:layout_height="wrap_content"
         android:text="添加图书"
         android:textColor="@android:color/holo_red_dark"
-        app:layout_constraintLeft_toRightOf="@id/btn_bind_service"
-        app:layout_constraintTop_toBottomOf="@id/btn_bind_service" />
+        app:layout_constraintLeft_toRightOf="@id/btn_get_count" />
 
     <Button
         android:id="@+id/btn_get_book_list"
@@ -37,7 +29,7 @@
         android:text="图书列表"
         android:textColor="@android:color/holo_red_dark"
         app:layout_constraintLeft_toRightOf="@id/btn_add_book"
-        app:layout_constraintTop_toBottomOf="@id/btn_bind_service" />
+        />
 
     <TextView
         android:id="@+id/tv_show_info"

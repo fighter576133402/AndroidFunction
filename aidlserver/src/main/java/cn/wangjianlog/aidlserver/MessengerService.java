@@ -2,6 +2,7 @@ package cn.wangjianlog.aidlserver;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -28,7 +29,7 @@ public class MessengerService extends Service {
 
     private static final int MSG_BOOK_COUNT = 0x110;
 
-    private Messenger messenger = new Messenger(new Handler(){
+    private static class MessengerHandler extends Handler{
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -39,19 +40,20 @@ public class MessengerService extends Service {
                 case MSG_BOOK_COUNT:
                     msgToClient.what = MSG_BOOK_COUNT;
                     try {
-                        //模拟耗时
-                        Thread.sleep(2000);
                         msgToClient.arg1 = 100;
+                        Bundle bundle = new Bundle();
+                        bundle.putString("reply","我收到你的信息了");
+                        msgToClient.setData(bundle);
                         msg.replyTo.send(msgToClient);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
                     break;
             }
         }
-    });
+    }
+
+    private Messenger messenger = new Messenger(new MessengerHandler());
 
     @Nullable
     @Override

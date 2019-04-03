@@ -3,6 +3,7 @@ package cn.wangjianlog.aidl;
 
 //导入所需要使用的非默认支持数据类型的包
 import cn.wangjianlog.aidl.Book;
+import cn.wangjianlog.aidl.IOnNewBookArrivedListener;
 
 interface IBookAidlInterface {
     /**
@@ -30,4 +31,8 @@ interface IBookAidlInterface {
     * 客户端输入了参数到服务端后，服务端也可对该参数进行修改等，最后在客户端上得到的是服务端输出的参数
     */
     void addBookInout(inout Book book);
+
+    void registerListener(IOnNewBookArrivedListener listener);
+
+    void unregisterListener(IOnNewBookArrivedListener listener);
 }

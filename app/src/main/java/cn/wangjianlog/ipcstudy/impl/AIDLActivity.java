@@ -16,6 +16,7 @@ import java.util.List;
 
 import cn.wangjianlog.aidl.Book;
 import cn.wangjianlog.aidl.IBookAidlInterface;
+import cn.wangjianlog.aidl.IOnNewBookArrivedListener;
 import cn.wangjianlog.ipcstudy.R;
 
 public class AIDLActivity extends AppCompatActivity {
@@ -41,16 +42,7 @@ public class AIDLActivity extends AppCompatActivity {
 
         tv_show_info = (TextView) findViewById(R.id.tv_show_info);
 
-        // 绑定服务
-        findViewById(R.id.btn_bind_service).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction("cn.wangjianlog.aidlserver.BookService");
-                intent.setPackage("cn.wangjianlog.aidlserver");
-                bindService(intent, serviceConnection, BIND_AUTO_CREATE);
-            }
-        });
+        bindService();
 
         // 获取图书数量
         findViewById(R.id.btn_get_count).setOnClickListener(new View.OnClickListener() {
@@ -75,9 +67,9 @@ public class AIDLActivity extends AppCompatActivity {
                         Book book = new Book();
                         book.setBookId(index++);
                         book.setBookName("算法导论");
-                        Log.i(TAG,"添加前：" + book.toString());
+                        //Log.i(TAG,"添加前：" + book.toString());
                         bookAidlInterface.addBookInout(book);
-                        Log.i(TAG,"添加后：" + book.toString());
+                        //Log.i(TAG,"添加后：" + book.toString());
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
@@ -102,6 +94,13 @@ public class AIDLActivity extends AppCompatActivity {
 
     }
 
+    private void bindService(){
+        Intent intent = new Intent();
+        intent.setAction("cn.wangjianlog.aidlserver.BookService");
+        intent.setPackage("cn.wangjianlog.aidlserver");
+        bindService(intent, serviceConnection, BIND_AUTO_CREATE);
+    }
+
     private void showBooks(List<Book> books) {
         if (books != null) {
             StringBuilder builder = new StringBuilder();
@@ -123,6 +122,7 @@ public class AIDLActivity extends AppCompatActivity {
                     service.linkToDeath(deathRecipient,0);
                     int value = bookAidlInterface.count(0);
                     tv_show_info.setText("绑定成功");
+                    bookAidlInterface.registerListener(onNewBookArrivedListener);
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
@@ -135,12 +135,20 @@ public class AIDLActivity extends AppCompatActivity {
         }
     };
 
+    IOnNewBookArrivedListener onNewBookArrivedListener = new IOnNewBookArrivedListener.Stub() {
+        @Override
+        public void onNewBookArrived(Book newBook) throws RemoteException {
+            Log.i(TAG,"有新书来了：" + newBook.toString());
+        }
+    };
+
     private IBinder.DeathRecipient deathRecipient = new IBinder.DeathRecipient() {
         @Override
         public void binderDied() {
             if (bookAidlInterface == null) {
                 return;
             }
+
             bookAidlInterface.asBinder().unlinkToDeath(deathRecipient,0);
             bookAidlInterface = null;
 
@@ -152,7 +160,12 @@ public class AIDLActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (bookAidlInterface != null){
+        if (bookAidlInterface != null && bookAidlInterface.asBinder().isBinderAlive()){
+            try {
+                bookAidlInterface.unregisterListener(onNewBookArrivedListener);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
             unbindService(serviceConnection);
         }
 

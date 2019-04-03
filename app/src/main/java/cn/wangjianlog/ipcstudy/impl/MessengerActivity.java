@@ -13,7 +13,8 @@ import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import java.lang.ref.WeakReference;
 
 import cn.wangjianlog.ipcstudy.R;
 
@@ -31,19 +32,6 @@ public class MessengerActivity extends AppCompatActivity {
         intent.setClass(context, MessengerActivity.class);
         context.startActivity(intent);
     }
-
-    private Messenger messenger = new Messenger(new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case MSG_BOOK_COUNT:
-                    Toast.makeText(getApplicationContext(), String.valueOf(msg.arg1), Toast.LENGTH_SHORT).show();
-                    tv_connect_status.setText(String.valueOf(msg.arg1));
-                    break;
-            }
-        }
-    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,22 +55,6 @@ public class MessengerActivity extends AppCompatActivity {
         bindService();
     }
 
-    private ServiceConnection mConn = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            mService = new Messenger(service);
-            isConn = true;
-            tv_connect_status.setText("connected!");
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            mService = null;
-            isConn = false;
-            tv_connect_status.setText("disconnected!");
-        }
-    };
-
     private void bindService() {
         Intent intent = new Intent();
         intent.setAction("cn.wangjianlog.aidlserver.MessengerService");
@@ -95,4 +67,53 @@ public class MessengerActivity extends AppCompatActivity {
         super.onDestroy();
         unbindService(mConn);
     }
+
+    public void setStatus(String status){
+        tv_connect_status.setText(status);
+    }
+
+
+    private ServiceConnection mConn = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            mService = new Messenger(service);
+            isConn = true;
+            setStatus("connected");
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            mService = null;
+            isConn = false;
+            setStatus("disconnected");
+        }
+    };
+
+    private static class MessengerHandler extends Handler{
+
+        private WeakReference<MessengerActivity> weakReference;
+
+        public MessengerHandler(MessengerActivity messengerActivity){
+            weakReference = new WeakReference<>(messengerActivity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case MSG_BOOK_COUNT:
+                    Bundle bundle = msg.getData();
+                    String reply = bundle.getString("reply");
+                    MessengerActivity messengerActivity = weakReference.get();
+                    if (messengerActivity != null){
+                        messengerActivity.setStatus(reply);
+                    }
+                    break;
+            }
+        }
+    }
+
+    private Messenger messenger = new Messenger(new MessengerHandler(this));
+
+
 }
