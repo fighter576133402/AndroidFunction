@@ -82,6 +82,7 @@ public class AIDLActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     if (bookAidlInterface != null) {
+                        //TODO 如果远程服务比较耗时需要开启线程调用
                         List<Book> books = bookAidlInterface.getBooks();
                         Log.i(TAG, "books:" + books);
                         showBooks(books);
@@ -139,6 +140,8 @@ public class AIDLActivity extends AppCompatActivity {
         @Override
         public void onNewBookArrived(Book newBook) throws RemoteException {
             Log.i(TAG,"有新书来了：" + newBook.toString());
+
+            //TODO 这里如果要做UI更新需要切换到UI线程
         }
     };
 

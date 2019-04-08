@@ -2,7 +2,9 @@ package cn.wangjianlog.aidlserver;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.IBinder;
+import android.os.Parcel;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
@@ -22,7 +24,7 @@ import cn.wangjianlog.aidl.IOnNewBookArrivedListener;
  * 功能说明:
  * 编写日期: 2019/3/29
  * 作者:	 WangJian
- * 备注:
+ * 备注: 通过aidl文件自动生成的service
  *
  * 历史记录
  * 1、修改日期：
@@ -91,6 +93,28 @@ public class BookService extends Service {
             bookArrivedListeners.unregister(listener);
             printListenerCount("unregister");
         }
+
+        @Override
+        public boolean onTransact(int code, Parcel data, Parcel reply, int flags) throws RemoteException {
+            // 权限验证的测试
+            int check = checkCallingOrSelfPermission("cn.wangjianlog.aidlserver.BookService");
+            if (check==PackageManager.PERMISSION_DENIED){
+                return false;
+            }
+
+            // 包名验证
+            String packageName = null;
+            String [] packages = getPackageManager().getPackagesForUid(getCallingUid());
+            if (packages != null && packages.length > 0){
+                packageName = packages[0];
+            }
+
+            if (packageName != null && !packageName.startsWith("cn.wangjianlog")){
+                return false;
+            }
+
+            return super.onTransact(code, data, reply, flags);
+        }
     };
 
     private void serviceAddBookIn(Book book){
@@ -140,7 +164,6 @@ public class BookService extends Service {
         @Override
         public void run() {
             while (!isServiceDestory.get()){
-
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {

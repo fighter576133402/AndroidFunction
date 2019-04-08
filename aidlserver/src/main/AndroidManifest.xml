@@ -3,6 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="cn.wangjianlog.aidlserver">
 
+    <permission
+        android:name="cn.wangjianlog.aidlserver.BookService"
+        android:protectionLevel="normal" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,27 +26,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
             android:name=".BookService"
-            android:exported="true"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
-                <action android:name="cn.wangjianlog.aidlserver.BookService"/>
+                <action android:name="cn.wangjianlog.aidlserver.BookService" />
             </intent-filter>
         </service>
 
-        <service android:name=".BookManagerService"
-            android:exported="true"
-            android:enabled="true">
+        <service
+            android:name=".BookManagerService"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
-                <action android:name="cn.wangjianlog.aidlserver.BookManagerService"/>
+                <action android:name="cn.wangjianlog.aidlserver.BookManagerService" />
             </intent-filter>
         </service>
-        <service android:name=".MessengerService"
-            android:exported="true"
-            android:enabled="true">
+        <service
+            android:name=".MessengerService"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
-                <action android:name="cn.wangjianlog.aidlserver.MessengerService"/>
+                <action android:name="cn.wangjianlog.aidlserver.MessengerService" />
             </intent-filter>
         </service>
     </application>

@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:text="自动生成的AIDL"
         android:textColor="@android:color/holo_red_dark"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -34,4 +33,24 @@
         app:layout_constraintRight_toRightOf="parent"
         android:textColor="@android:color/holo_red_dark"
         app:layout_constraintTop_toBottomOf="@id/btn_aidl_custom" />
+
+    <Button
+        android:id="@+id/btn_provider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Provider"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textColor="@android:color/holo_red_dark"
+        app:layout_constraintTop_toBottomOf="@id/btn_messenger" />
+
+    <Button
+        android:id="@+id/btn_socket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Socket"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textColor="@android:color/holo_red_dark"
+        app:layout_constraintTop_toBottomOf="@id/btn_provider" />
 </android.support.constraint.ConstraintLayout>

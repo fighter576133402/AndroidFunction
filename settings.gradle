@@ -1,1 +1,1 @@
-include ':app', ':aidlserver', ':aidl'
+include ':app', ':aidlserver', ':aidl', ':bookprovider', ':socket'

@@ -16,7 +16,7 @@ import android.support.annotation.Nullable;
  * 功能说明:
  * 编写日期: 2019/4/2
  * 作者:	 WangJian
- * 备注:
+ * 备注: 系统封装的aidl，方便我们使用
  *
  * 历史记录
  * 1、修改日期：

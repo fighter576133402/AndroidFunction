@@ -18,7 +18,8 @@ import cn.wangjianlog.aidl.Stub;
  * 功能说明:
  * 编写日期: 2019/4/1
  * 作者:	 WangJian
- * 备注:
+ * 备注: 手动创建aidl 分析aidl的工作原理
+ *
  *
  * 历史记录
  * 1、修改日期：

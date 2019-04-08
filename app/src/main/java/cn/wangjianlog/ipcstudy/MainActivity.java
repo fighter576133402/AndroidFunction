@@ -7,6 +7,8 @@ import android.view.View;
 import cn.wangjianlog.ipcstudy.impl.AIDLActivity;
 import cn.wangjianlog.ipcstudy.impl.AIDLManagerActivity;
 import cn.wangjianlog.ipcstudy.impl.MessengerActivity;
+import cn.wangjianlog.ipcstudy.impl.ProviderActivity;
+import cn.wangjianlog.ipcstudy.impl.SocketActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,6 +35,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 MessengerActivity.start(v.getContext());
+            }
+        });
+
+        findViewById(R.id.btn_provider).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProviderActivity.start(v.getContext());
+            }
+        });
+
+        findViewById(R.id.btn_socket).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SocketActivity.start(v.getContext());
             }
         });
     }
