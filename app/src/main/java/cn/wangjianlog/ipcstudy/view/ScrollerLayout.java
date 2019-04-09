@@ -3,6 +3,7 @@ package cn.wangjianlog.ipcstudy.view;
 import android.content.Context;
 import android.support.v4.view.ViewConfigurationCompat;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
@@ -26,12 +27,16 @@ import android.widget.Scroller;
 public class ScrollerLayout extends ViewGroup {
 
     private Scroller mScroller;
+    //判定为拖动的最小移动像素数
+    private int mTouchSlop;
+    private int mLastX;
+    private int mLastY;
     private int leftBorder;
     private int rightBorder;
-    private int mTouchSlop;//判定为拖动的最小移动像素数
 
     public ScrollerLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setClickable(true);
         mScroller = new Scroller(context);
         ViewConfiguration configuration = ViewConfiguration.get(context);
         // 获取TouchSlop值
@@ -56,7 +61,7 @@ public class ScrollerLayout extends ViewGroup {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        measureChildren(widthMeasureSpec,heightMeasureSpec);
+        measureChildren(widthMeasureSpec, heightMeasureSpec);
 //        for (int i = 0; i < getChildCount(); i++) {
 //            View childView = getChildAt(i);
 //            measureChild(childView, widthMeasureSpec, heightMeasureSpec);
@@ -64,17 +69,50 @@ public class ScrollerLayout extends ViewGroup {
     }
 
     @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        return super.onInterceptTouchEvent(ev);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        int x = (int) event.getRawX();
+        int y = (int) event.getRawY();
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+
+                break;
+            case MotionEvent.ACTION_MOVE:
+                int deltaX = x - mLastX;
+                int deltaY = y - mLastY;
+                int translationX = (int)getTranslationX() + deltaX;
+                int translationY = (int)getTranslationY() + deltaY;
+                setTranslationX(translationX);
+                setTranslationY(translationY);
+                break;
+            case MotionEvent.ACTION_UP:
+
+                break;
+            default:
+                break;
+        }
+        mLastX = x;
+        mLastY = y;
+        return true;
+    }
+
+
+    @Override
     public void computeScroll() {
         super.computeScroll();
-        if(mScroller.computeScrollOffset()){
-            this.scrollTo(mScroller.getCurrX(),mScroller.getCurrY());
+        if (mScroller.computeScrollOffset()) {
+            this.scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
             postInvalidate();
         }
     }
 
-    public void startScroll(int dx,int dy){
-        mScroller.startScroll(getScrollX(),getScrollY(),
-                dx,dy,1000);
+    public void startScroll(int dx, int dy) {
+        mScroller.startScroll(getScrollX(), getScrollY(),
+                dx, dy, 1000);
         postInvalidate();
     }
 }
