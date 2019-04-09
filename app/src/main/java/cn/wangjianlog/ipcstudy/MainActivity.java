@@ -8,7 +8,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,14 +15,19 @@ import android.view.View;
 
 import cn.wangjianlog.ipcstudy.impl.AIDLActivity;
 import cn.wangjianlog.ipcstudy.impl.AIDLManagerActivity;
+import cn.wangjianlog.ipcstudy.impl.BaseActivity;
 import cn.wangjianlog.ipcstudy.impl.BinderPoolActivity;
 import cn.wangjianlog.ipcstudy.impl.MessengerActivity;
 import cn.wangjianlog.ipcstudy.impl.ProviderActivity;
 import cn.wangjianlog.ipcstudy.impl.SocketActivity;
+import cn.wangjianlog.ipcstudy.impl.fragment.MainFragment;
+import cn.wangjianlog.ipcstudy.impl.fragment.SlideFragment;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private Context mContext;
+    private SlideFragment slideFragment;
+    private MainFragment mainFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        initFragment();
+
+        firstFragment();
     }
 
     @Override
@@ -97,10 +104,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             SocketActivity.start(mContext);
         } else if (id == R.id.nav_binder_pool) {
             BinderPoolActivity.start(mContext);
+        } else if (id == R.id.nav_slide) {
+            switchFragment(R.id.container,slideFragment);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private void initFragment(){
+        mainFragment = new MainFragment();
+        slideFragment = new SlideFragment();
+    }
+
+    private void firstFragment(){
+        addFragment(R.id.container,mainFragment);
+        currentFragment = mainFragment;
+    }
+
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".impl.fragment.SlideFragment">
+
+    <Button
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/btn_start"
+        android:text="测试Scroller"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <cn.wangjianlog.ipcstudy.view.ScrollerLayout
+        android:id="@+id/scroller_layout"
+        android:layout_above="@id/btn_start"
+        android:background="@android:color/holo_green_dark"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <View
+            android:id="@+id/test_view"
+            android:layout_centerInParent="true"
+            android:background="@android:color/holo_blue_bright"
+            android:layout_width="100dp"
+            android:layout_height="100dp"/>
+    </cn.wangjianlog.ipcstudy.view.ScrollerLayout>
+
+</RelativeLayout>

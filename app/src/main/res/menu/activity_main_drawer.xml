@@ -4,8 +4,7 @@
     tools:showIn="navigation_view">
 
     <group
-        android:id="@+id/aidl"
-        android:checkableBehavior="single">
+        android:id="@+id/aidl">
         <item
             android:id="@+id/nav_aidl"
             android:title="AIDL" />
@@ -27,7 +26,7 @@
     </group>
     <group android:id="@+id/ui">
         <item
-            android:id="@+id/slide"
+            android:id="@+id/nav_slide"
             android:title="滑动" />
     </group>
 </menu>
