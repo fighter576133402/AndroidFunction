@@ -1,6 +1,7 @@
 package cn.wangjianlog.ipcstudy;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -54,6 +55,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemTextColor(ColorStateList.valueOf(getResources().getColor(R.color.nav_text_color)));
 
         initFragment();
 
