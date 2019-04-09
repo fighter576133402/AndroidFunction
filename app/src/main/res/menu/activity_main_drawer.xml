@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group
+        android:id="@+id/aidl"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_aidl"
+            android:title="AIDL" />
+        <item
+            android:id="@+id/nav_aidl_manager"
+            android:title="AIDL手动" />
+        <item
+            android:id="@+id/nav_messenger"
+            android:title="Messenger" />
+        <item
+            android:id="@+id/nav_provider"
+            android:title="Provider" />
+        <item
+            android:id="@+id/nav_socket"
+            android:title="Socket" />
+        <item
+            android:id="@+id/nav_binder_pool"
+            android:title="BinderPool" />
+    </group>
+    <group android:id="@+id/ui">
+        <item
+            android:id="@+id/slide"
+            android:title="滑动" />
+    </group>
+</menu>

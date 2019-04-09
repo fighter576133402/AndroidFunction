@@ -1,55 +1,106 @@
 package cn.wangjianlog.ipcstudy;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import cn.wangjianlog.ipcstudy.impl.AIDLActivity;
 import cn.wangjianlog.ipcstudy.impl.AIDLManagerActivity;
+import cn.wangjianlog.ipcstudy.impl.BinderPoolActivity;
 import cn.wangjianlog.ipcstudy.impl.MessengerActivity;
 import cn.wangjianlog.ipcstudy.impl.ProviderActivity;
 import cn.wangjianlog.ipcstudy.impl.SocketActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mContext = this;
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        findViewById(R.id.btn_aidl).setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                AIDLActivity.start(v.getContext());
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
 
-        findViewById(R.id.btn_aidl_custom).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AIDLManagerActivity.start(v.getContext());
-            }
-        });
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
-        findViewById(R.id.btn_messenger).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MessengerActivity.start(v.getContext());
-            }
-        });
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
-        findViewById(R.id.btn_provider).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ProviderActivity.start(v.getContext());
-            }
-        });
+    }
 
-        findViewById(R.id.btn_socket).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SocketActivity.start(v.getContext());
-            }
-        });
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.nav_aidl) {
+            AIDLActivity.start(mContext);
+        } else if (id == R.id.nav_aidl_manager) {
+            AIDLManagerActivity.start(mContext);
+        } else if (id == R.id.nav_messenger) {
+            MessengerActivity.start(mContext);
+        } else if (id == R.id.nav_provider) {
+            ProviderActivity.start(mContext);
+        } else if (id == R.id.nav_socket) {
+            SocketActivity.start(mContext);
+        } else if (id == R.id.nav_binder_pool) {
+            BinderPoolActivity.start(mContext);
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
